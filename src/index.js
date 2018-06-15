@@ -170,6 +170,7 @@ export default class extends Component {
     autoplayTimeout: 2.5,
     autoplayDirection: true,
     index: 0,
+    externalPagination: false,
     onIndexChanged: () => null
   }
 
@@ -670,6 +671,7 @@ export default class extends Component {
       renderPagination,
       showsButtons,
       showsPagination,
+      externalPagination,
     } = this.props;
     // let dir = state.dir
     // let key = 0
@@ -714,15 +716,23 @@ export default class extends Component {
       pages = <View style={pageStyle} key={0}>{children}</View>
     }
 
+    const pagination = (renderPagination
+            ? renderPagination(index, total, this)
+            : this.renderPagination());
     return (
-      <View style={[styles.container, containerStyle]} onLayout={this.onLayout}>
-        {this.renderScrollView(pages)}
-        {showsPagination && (renderPagination
-          ? renderPagination(index, total, this)
-          : this.renderPagination())}
-        {this.renderTitle()}
-        {showsButtons && this.renderButtons()}
-      </View>
+      <React.Fragment>
+        <View style={[styles.container, containerStyle]} onLayout={this.onLayout}>
+          {this.renderScrollView(pages)}
+          {showsPagination && !externalPagination && pagination}
+          {this.renderTitle()}
+          {showsButtons && this.renderButtons()}
+        </View>
+        {externalPagination && showsPagination &&
+          <View style={{ flex: 1 }}>
+              {pagination}
+          </View>
+        }
+      </React.Fragment>
     )
   }
 }

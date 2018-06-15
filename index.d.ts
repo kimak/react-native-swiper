@@ -1,4 +1,4 @@
-declare module 'react-native-swiper' {
+declare module 'react-native-swiper-forkdots' {
     import { ViewStyle } from 'react-native'
     import { Component } from 'react'
 
@@ -34,6 +34,8 @@ declare module 'react-native-swiper' {
         // Pagination
         // Set to true make pagination visible.
         showsPagination?: boolean
+        // Move pagination outside container (fix needed on android overflow)
+        externalPagination?: boolean
         // Custom styles will merge with the default styles.
         paginationStyle?: ViewStyle
         // Complete control how to render pagination with three params (index, total, context) ref to this.state.index / this.state.total / this, For example: show numbers instead of dots.
