@@ -195,7 +195,19 @@ export default class extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (!nextProps.autoplay && this.autoplayTimer) clearTimeout(this.autoplayTimer)
-    this.setState(this.initState(nextProps, this.props.index !== nextProps.index))
+    
+    const updateIndex = this.props.index !== nextProps.index;
+    if (
+      updateIndex ||
+      this.props.children !== nextProps.children || 
+      this.props.width !== nextProps.width ||
+      this.props.height !== nextProps.height ||
+      this.props.horizontal !== nextProps.horizontal
+    ) {
+      this.setState(
+        this.initState(nextProps, updateIndex)
+      );
+    }
   }
 
   componentDidMount () {
@@ -728,7 +740,7 @@ export default class extends Component {
           {showsButtons && this.renderButtons()}
         </View>
         {externalPagination && showsPagination &&
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 0 }}>
               {pagination}
           </View>
         }
