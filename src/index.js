@@ -199,7 +199,6 @@ export default class extends Component {
     const updateIndex = this.props.index !== nextProps.index;
     if (
       updateIndex ||
-      this.props.children !== nextProps.children || 
       this.props.width !== nextProps.width ||
       this.props.height !== nextProps.height ||
       this.props.horizontal !== nextProps.horizontal
